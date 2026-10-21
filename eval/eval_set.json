@@ -1,0 +1,44 @@
+{
+  "benchmark_queries": [
+    {
+      "category": "fox",
+      "queries": [
+        "a red fox in the forest",
+        "fox running through grass",
+        "close-up of a fox face",
+        "wild fox at night",
+        "red fox sitting in snow"
+      ]
+    },
+    {
+      "category": "wolf",
+      "queries": [
+        "gray wolf howling at moon",
+        "wolf pack in the woods",
+        "wolf running through snow",
+        "close-up of a wolf face",
+        "wild wolf standing on hill"
+      ]
+    },
+    {
+      "category": "dog",
+      "queries": [
+        "golden retriever playing fetch",
+        "small dog barking at mailman",
+        "puppy sleeping in bed",
+        "dog running in park",
+        "bulldog on a leash"
+      ]
+    },
+    {
+      "category": "deer",
+      "queries": [
+        "white-tailed deer in forest",
+        "deer grazing in meadow",
+        "fawn with spots in grass",
+        "stag with antlers",
+        "deer drinking from stream"
+      ]
+    }
+  ]
+}
