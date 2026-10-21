@@ -1,0 +1,68 @@
+services:
+  postgres:
+    container_name: postgres_db
+    image: pgvector/pgvector:pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: image_relevance_db
+      POSTGRES_INITDB_ARGS: "--data-checksums"
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d image_relevance_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks:
+      - image_relevance
+
+  redis:
+    container_name: redis_cache
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory", "512mb", "--maxmemory-policy", "allkeys-lru"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    networks:
+      - image_relevance
+
+  localstack:
+    container_name: localstack_s3
+    image: localstack/localstack:3
+    restart: unless-stopped
+    environment:
+      SERVICES: s3
+      DEFAULT_REGION: us-east-1
+      EAGER_SERVICE_LOADING: "1"
+      DEBUG: "0"
+    ports:
+      - "4566:4566"
+    volumes:
+      - localstackdata:/var/lib/localstack
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:4566/_localstack/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+    networks:
+      - image_relevance
+
+volumes:
+  pgdata:
+  redisdata:
+  localstackdata:
+
+networks:
+  image_relevance:
+    driver: bridge
