@@ -43,7 +43,7 @@ The evaluator hits `http://127.0.0.1:8000/search/hybrid` across 20 queries
 Env vars are loaded from `.env` (see `.env.example`). Default database is
 `postgresql+asyncpg://postgres:postgres@localhost:5432/image_relevance_db`.
 
-## Deployment
+## Deployment.
 
 `deploy_aws.sh` produces a production packaging manifest (ECR repo
 `image-relevance-engine`, S3 bucket `image-relevance-assets-prod`).
